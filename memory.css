@@ -1,3 +1,26 @@
 body{
-    background-color: grey;
+    background-color: black;
+}
+
+h1{
+    font-family: 'Yatra One', cursive;
+    text-align: center;
+    font-size: 68px;
+    color: rgb(30, 0, 0);
+    font-weight: 100;
+    text-shadow: -1px 0 darkred, 0 1px darkred, 5px 0 rgb(92, 1, 1), 0 -5px rgb(63, 1, 1);    
+}
+
+#leftimage{
+    position: fixed;
+    left: 50px;
+    top: 50px;
+    filter: brightness(60%);
+}
+
+#rightimage{
+    position: fixed;
+    right: 50px;
+    top: 50px;
+    filter: brightness(60%);
 }
