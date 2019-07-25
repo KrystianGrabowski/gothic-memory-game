@@ -3,12 +3,13 @@ body{
 }
 
 h1{
-    font-family: 'Yatra One', cursive;
+    font-family: 'Trade Winds', cursive;;
     text-align: center;
     font-size: 68px;
-    color: rgb(30, 0, 0);
+    color: rgb(20, 0, 0);
     font-weight: 100;
-    text-shadow: -1px 0 darkred, 0 1px darkred, 5px 0 rgb(92, 1, 1), 0 -5px rgb(63, 1, 1);    
+    text-shadow: -1px 0 darkred, 0 1px darkred, 5px 0 rgb(92, 1, 1), 0 -5px rgb(63, 1, 1);
+    height: 80px;    
 }
 
 #leftimage{
@@ -23,4 +24,22 @@ h1{
     right: 50px;
     top: 50px;
     filter: brightness(60%);
+}
+
+#board{
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.card{
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    background-image: url("images/dragon.jpg");
+    background-size: 150px;
+    margin: 5px;
+    border: 2px solid rgb(92, 1, 1);
+    border-radius: 10px;    
 }
