@@ -1,7 +1,8 @@
 var cardNames = ["diego.jpg", "xardas.jpg", "diego.jpg", "gorn.jpg", "milten.jpg", "lares.jpg", "gorn.jpg", "xardas.jpg", "milten.jpg", "lester.jpg", "lester.jpg", "lares.jpg"]
 var secondCard = false;
 var prevCard = 0;
-var defalutImagePath = "images/dragon.jpg"; 
+var defalutImagePath = "images/dragon.jpg";
+var lock = false;
 
 function showCard(cardId){
     $("#card" + cardId).css("background-image", "url('images/" + cardNames[cardId] + "')");
@@ -25,6 +26,7 @@ function compareCards(cardId1, cardId2){
 function hideTwoCards(cardId1, cardId2){
     hideCard(cardId1);
     hideCard(cardId2);
+    lock = false;
 }
 
 function hideCard(cardId){
@@ -34,10 +36,12 @@ function hideCard(cardId){
 function restoreTwoCards(cardId1, cardId2){
     restoreCard(cardId1);
     restoreCard(cardId2);
+    lock = false;
 }
 
 function restoreCard(cardId){
     $("#card" + cardId).css("background-image", "url(" + defalutImagePath + ")");
+    $("#card" + cardId).toggleClass("cardOnOff");
 }
 
 function updateScore(cardId1, cardId2){
@@ -50,15 +54,19 @@ function updateScore(cardId1, cardId2){
 }
 
 function cardManager(cardId){
-    showCard(cardId);
-    if (secondCard){
-        secondCard = false;
-        updateScore(prevCard, cardId);
+    if (!lock){
+        showCard(cardId);
+        if (secondCard && (prevCard != cardId)){
+            lock = true;
+            secondCard = false;
+            updateScore(prevCard, cardId);
+        }
+        else{
+            prevCard = cardId;
+            secondCard = true;
+        }
     }
-    else{
-        prevCard = cardId;
-        secondCard = true;
-    }
+
 }
 
 
