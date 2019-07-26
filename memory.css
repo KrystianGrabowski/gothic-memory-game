@@ -1,15 +1,20 @@
 body{
-    background-color: black;
+
+    background:         
+        linear-gradient(
+        rgba(0, 0, 0, 0.95), 
+        rgba(0, 0, 0, 0.95)
+      ), url("images/background.jpeg");
+    background-size: cover    
 }
 
 h1{
-    font-family: 'Trade Winds', cursive;;
+    font-family: 'Trade Winds', cursive;
     text-align: center;
     font-size: 68px;
     color: rgb(20, 0, 0);
     font-weight: 100;
     text-shadow: -1px 0 darkred, 0 1px darkred, 5px 0 rgb(92, 1, 1), 0 -5px rgb(63, 1, 1);
-    height: 80px;    
 }
 
 #leftimage{
@@ -31,6 +36,7 @@ h1{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    color: rgb(92, 1, 1);
 }
 
 .card{
@@ -39,10 +45,9 @@ h1{
     width: 150px;
     background-image: url("images/dragon.jpg");
     background-size: 150px;
-    margin: 5px;
+    margin: 3px;
     border: 2px solid rgb(92, 1, 1);
     border-radius: 8px;
-
 }
 
 .cardOnOff{
@@ -54,4 +59,19 @@ h1{
     filter: brightness(100%);
     border: 2px solid rgb(66, 48, 0);
     box-shadow: 0px 0px 30px 3px rgb(92,1,1);
+}
+
+#endScreen{
+    position: relative;
+    top: 50px;
+    font-family: 'Trade Winds', cursive;
+    font-size: 48px;
+}
+
+.resetButton{
+    font-size: 36px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }

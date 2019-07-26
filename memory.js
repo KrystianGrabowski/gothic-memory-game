@@ -3,6 +3,7 @@ var secondCard = false;
 var prevCard = 0;
 var defalutImagePath = "images/dragon.jpg";
 var lock = false;
+var numberOfPairs = 6;
 
 function showCard(cardId){
     $("#card" + cardId).css("background-image", "url('images/" + cardNames[cardId] + "')");
@@ -21,6 +22,24 @@ function prepareCards(){
 
 function compareCards(cardId1, cardId2){
     return cardNames[cardId1] == cardNames[cardId2];
+}
+
+function alerter(){
+    alert("Hello");
+}
+
+function endGame(){
+    $("#board").css("display", "none");
+    $("#board").html("<div id=endScreen>Congratulations, you won </br> <div class='resetButton'>Play again</div></div>");
+    $(".resetButton").on("click", function() {location.reload()});
+}
+
+function checkEnd(){
+    if(numberOfPairs == 0){
+        endGame();
+        $("#board").fadeIn(3000);
+        
+    }
 }
 
 function hideTwoCards(cardId1, cardId2){
@@ -47,6 +66,8 @@ function restoreCard(cardId){
 function updateScore(cardId1, cardId2){
     if (compareCards(cardId1, cardId2)){
         setTimeout(function() {hideTwoCards(cardId1, cardId2)} , 1000);
+        numberOfPairs--;
+        checkEnd();
     }
     else{
         setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 1000);
