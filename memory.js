@@ -4,6 +4,7 @@ var prevCard = 0;
 var defalutImagePath = "images/dragon.jpg";
 var lock = false;
 var numberOfPairs = 6;
+var turnNumber = 0;
 
 function showCard(cardId){
     $("#card" + cardId).css("background-image", "url('images/" + cardNames[cardId] + "')");
@@ -24,14 +25,22 @@ function compareCards(cardId1, cardId2){
     return cardNames[cardId1] == cardNames[cardId2];
 }
 
-function alerter(){
-    alert("Hello");
+function myFadeIn(name, msTime){
+    $(name).fadeIn(msTime);
+}
+
+function fadeAndChange(){
+    $("#board").html("<div id=endScreen>Congratulations, you won </br> It took you " + turnNumber 
+        + " turns</br>  <div class='resetButton'>Play again</div></div>");
+    $(".resetButton").on("click", function() {location.reload()});
+    myFadeIn("#board", 2000);
 }
 
 function endGame(){
-    $("#board").css("display", "none");
-    $("#board").html("<div id=endScreen>Congratulations, you won </br> <div class='resetButton'>Play again</div></div>");
-    $(".resetButton").on("click", function() {location.reload()});
+    
+    $("#score").fadeOut(900);
+    $("#board").fadeOut(1000);
+    setTimeout(function() {fadeAndChange()}, 1000);
 }
 
 function checkEnd(){
@@ -63,7 +72,14 @@ function restoreCard(cardId){
     $("#card" + cardId).toggleClass("cardOnOff");
 }
 
-function updateScore(cardId1, cardId2){
+function updateScore(){
+    $("#score").html("TURN: " + turnNumber);
+}
+
+
+
+function checkResult(cardId1, cardId2){
+    turnNumber++;
     if (compareCards(cardId1, cardId2)){
         setTimeout(function() {hideTwoCards(cardId1, cardId2)} , 1000);
         numberOfPairs--;
@@ -72,6 +88,7 @@ function updateScore(cardId1, cardId2){
     else{
         setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 1000);
     }
+    setTimeout(function() {updateScore()}, 1000);
 }
 
 function cardManager(cardId){
@@ -80,7 +97,7 @@ function cardManager(cardId){
         if (secondCard && (prevCard != cardId)){
             lock = true;
             secondCard = false;
-            updateScore(prevCard, cardId);
+            checkResult(prevCard, cardId);
         }
         else{
             prevCard = cardId;
