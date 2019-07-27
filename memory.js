@@ -19,16 +19,19 @@ Array.prototype.shuffle = function(){
 }
 
 function prepareCards(){ 
-    console.log(cardNames);
     cardNames.shuffle();
-    console.log(cardNames);
+    $("<ul class='panel'>").appendTo("#board");
     for(let i=0; i<12; i++){
+        $("<li id='liitem" + i + "'>").appendTo(".panel");
         $("<div id='card" + i + "'></div>")
-            .addClass("card")
+            .addClass("front")
             .addClass("cardOnOff")
             .on("click", function(){cardManager(i)})
-            .appendTo("#board");
+            .appendTo("#liitem" + i);
+        $("</li>").appendTo(".panel");
+
     }
+    $("</ul>").appendTo("#board");
 }
 
 function compareCards(cardId1, cardId2){
