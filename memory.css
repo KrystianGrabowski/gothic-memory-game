@@ -126,9 +126,6 @@ h1{
     height: 150px;
     margin: 7px;
     text-align: left;
-
-
-
 }
 li:hover .front{
     animation: tw 0.2s ease-in forwards;
