@@ -11,7 +11,17 @@ function showCard(cardId){
     $("#card" + cardId).toggleClass("cardOnOff");
 }
 
+Array.prototype.shuffle = function(){
+    for (let i=this.length-1; i>0; i--){
+        let j = Math.floor(Math.random() * (i+1));
+        [this[i], this[j]] = [this[j], this[i]]; 
+    }
+}
+
 function prepareCards(){ 
+    console.log(cardNames);
+    cardNames.shuffle();
+    console.log(cardNames);
     for(let i=0; i<12; i++){
         $("<div id='card" + i + "'></div>")
             .addClass("card")
