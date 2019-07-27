@@ -7,8 +7,8 @@ var numberOfPairs = 6;
 var turnNumber = 0;
 
 function showCard(cardId){
-    $("#card" + cardId).css("background-image", "url('images/" + cardNames[cardId] + "')");
-    $("#card" + cardId).toggleClass("cardOnOff");
+    $("#frontCard"+cardId).css("animation", "cardrotation 0.2s ease-in forwards");
+    $("#backCard"+cardId).css("animation", "cardrotation 0.2s 0.2s ease-out forwards reverse");
 }
 
 Array.prototype.shuffle = function(){
@@ -25,18 +25,14 @@ function prepareCards(){
         $("<li id='liitem" + i + "'>").appendTo(".panel");
             $("<div id='backCard" + i + "'></div>")
             .addClass("back")
-            .addClass("cardOnOff")
             .css("background-image", "url('images/" + cardNames[i])
             .on("click", function(){cardManager(i)})
             .appendTo("#liitem" + i);
-        $("<div id='frontcard" + i + "'></div>")
+        $("<div id='frontCard" + i + "'></div>")
             .addClass("front")
-            .addClass("cardOnOff")
             .on("click", function(){cardManager(i)})
             .appendTo("#liitem" + i);
-
         $("</li>").appendTo(".panel");
-
     }
     $("</ul>").appendTo("#board");
 }
@@ -78,7 +74,9 @@ function hideTwoCards(cardId1, cardId2){
 }
 
 function hideCard(cardId){
-    $("#card" + cardId).css("opacity" , 0);
+    $("#frontCard" + cardId).css("opacity" , 0);
+    $("#backCard" + cardId).css("opacity" , 0);
+
 }
 
 function restoreTwoCards(cardId1, cardId2){
@@ -88,14 +86,14 @@ function restoreTwoCards(cardId1, cardId2){
 }
 
 function restoreCard(cardId){
-    $("#card" + cardId).css("background-image", "url(" + defalutImagePath + ")");
-    $("#card" + cardId).toggleClass("cardOnOff");
+    $("#frontCard"+cardId).css("animation", "none");
+    $("#backCard"+cardId).css("animation", "none");
 }
+
 
 function updateScore(){
     $("#score").html("TURN: " + turnNumber);
 }
-
 
 
 function checkResult(cardId1, cardId2){

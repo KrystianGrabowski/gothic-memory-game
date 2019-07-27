@@ -50,11 +50,8 @@ h1{
     border-radius: 8px;
 }
 
-.cardOnOff{
-    filter: brightness(75%);
-}
 
-.card:hover{
+.front:hover{
     filter: brightness(100%);
     border: 2px solid rgb(66, 48, 0);
     box-shadow: 0px 0px 30px 3px rgb(92,1,1);
@@ -87,6 +84,7 @@ h1{
 
 .front{
     display: inline-block;
+    filter: brightness(70%);
     position: relative;
     height: 150px;
     width: 150px;
@@ -127,17 +125,13 @@ h1{
     margin: 7px;
     text-align: left;
 }
-li:hover .front{
-    animation: tw 0.2s ease-in forwards;
-}
 
-li:hover .back{
-    animation: tw 0.2s 0.2s ease-out forwards reverse;
-}
 
-@keyframes tw{
+@keyframes cardrotation{
     0% {transform: rotateY(0deg)}
     100% {transform: rotateY(90deg)}
 }
+
+
 
 
