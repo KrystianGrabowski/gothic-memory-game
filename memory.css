@@ -51,7 +51,6 @@ h1{
 }
 
 .cardOnOff{
-    cursor: pointer;
     filter: brightness(75%);
 }
 
@@ -95,9 +94,13 @@ h1{
     background-size: 150px;
     border: 2px solid rgb(92, 1, 1);
     border-radius: 8px;
+    transform-style: preserve-3d;
+    transition: all 0.5 ease;
+    background-color: aqua;
 
 }
 .back{
+    background-color: aquamarine;
     display: inline-block;
     position: absolute;
     height: 150px;
@@ -105,7 +108,7 @@ h1{
     background-size: 150px;
     border: 2px solid rgb(92, 1, 1);
     border-radius: 8px;
-
+    transform: rotateY(90deg);
 }
 
 .panel{
@@ -127,4 +130,17 @@ h1{
 
 
 }
+li:hover .front{
+    animation: tw 0.2s ease-in forwards;
+}
+
+li:hover .back{
+    animation: tw 0.2s 0.2s ease-out forwards reverse;
+}
+
+@keyframes tw{
+    0% {transform: rotateY(0deg)}
+    100% {transform: rotateY(90deg)}
+}
+
 
