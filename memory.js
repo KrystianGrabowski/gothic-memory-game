@@ -23,11 +23,18 @@ function prepareCards(){
     $("<ul class='panel'>").appendTo("#board");
     for(let i=0; i<12; i++){
         $("<li id='liitem" + i + "'>").appendTo(".panel");
+            $("<div id='card" + i + "'></div>")
+            .addClass("back")
+            .addClass("cardOnOff")
+            .css("background-image", "url('images/" + cardNames[i])
+            .on("click", function(){cardManager(i)})
+            .appendTo("#liitem" + i);
         $("<div id='card" + i + "'></div>")
             .addClass("front")
             .addClass("cardOnOff")
             .on("click", function(){cardManager(i)})
             .appendTo("#liitem" + i);
+
         $("</li>").appendTo(".panel");
 
     }
