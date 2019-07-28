@@ -39,18 +39,6 @@ h1{
     color: rgb(92, 1, 1);
 }
 
-.card{
-    display: inline-block;
-    height: 150px;
-    width: 150px;
-    background-image: url("images/dragon.jpg");
-    background-size: 150px;
-    margin: 3px;
-    border: 2px solid rgb(92, 1, 1);
-    border-radius: 8px;
-}
-
-
 .front:hover{
     filter: brightness(100%);
     border: 2px solid rgb(66, 48, 0);
@@ -92,13 +80,10 @@ h1{
     background-size: 150px;
     border: 2px solid rgb(92, 1, 1);
     border-radius: 8px;
-    transform-style: preserve-3d;
-    transition: all 0.5 ease;
-    background-color: aqua;
+    cursor: pointer;
 
 }
 .back{
-    background-color: aquamarine;
     display: inline-block;
     position: absolute;
     height: 150px;
