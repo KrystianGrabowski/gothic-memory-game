@@ -6,9 +6,61 @@ var lock = false;
 var numberOfPairs = 6;
 var turnNumber = 0;
 
+function showFront(cardId){
+    $("#frontCard"+cardId).animate(
+        {deg: 0},
+        {
+            duration: 1000,
+            step: function(now) {
+                $(this).css({ transform: 'rotateY(' + now + 'deg)' });
+            }
+        }
+    )
+}
+
+function hideFront(cardId){
+    $("#frontCard"+cardId).animate(
+        {deg: 90},
+        {
+            duration: 1000,
+            step: function(now) {
+                $(this).css({ transform: 'rotateY(' + now + 'deg)' });
+            }
+        }
+    )
+}
+
+function showBack(cardId){
+    $("#backCard"+cardId).animate(
+        {deg: 90},
+        {
+            duration: 1000,
+            step: function(now) {
+                $(this).css({ transform: 'rotateY(' + (90 - now) + 'deg)' });
+            }
+        }
+    )
+}
+
+function hideBack(cardId){
+    $("#backCard"+cardId).animate(
+        {deg: 0},
+        {
+            duration: 1000,
+            step: function(now) {
+                console.log("Here" + now);
+                $(this).css({ transform: 'rotateY(' + (90 - now) + 'deg)' });
+            }
+        }
+    )
+}
+
 function showCard(cardId){
-    $("#frontCard"+cardId).css("animation", "cardrotation 0.2s ease-in forwards");
-    $("#backCard"+cardId).css("animation", "cardrotation 0.2s 0.2s ease-out forwards reverse");
+    hideFront(cardId);
+    setTimeout(function() {showBack(cardId)}, 1000);
+
+    /*$("#frontCard"+cardId).css("animation", "cardrotation 0.2s ease-in forwards");
+    $("#backCard"+cardId).css("animation", "cardrotation 0.2s 0.2s ease-out forwards reverse");*/
 }
 
 Array.prototype.shuffle = function(){
@@ -22,15 +74,15 @@ function prepareCards(){
     cardNames.shuffle();
     $("<ul class='panel'>").appendTo("#board");
     for(let i=0; i<12; i++){
-        $("<li id='liitem" + i + "'>").appendTo(".panel");
-            $("<div id='backCard" + i + "'></div>")
+        $("<li id='liitem" + i + "'>")
+            .on("click", function(){cardManager(i)})
+            .appendTo(".panel");
+        $("<div id='backCard" + i + "'></div>")
             .addClass("back")
             .css("background-image", "url('images/" + cardNames[i])
-            .on("click", function(){cardManager(i)})
             .appendTo("#liitem" + i);
         $("<div id='frontCard" + i + "'></div>")
             .addClass("front")
-            .on("click", function(){cardManager(i)})
             .appendTo("#liitem" + i);
         $("</li>").appendTo(".panel");
     }
@@ -86,8 +138,8 @@ function restoreTwoCards(cardId1, cardId2){
 }
 
 function restoreCard(cardId){
-    $("#frontCard"+cardId).css("animation", "none");
-    $("#backCard"+cardId).css("animation", "none");
+    hideBack(cardId);
+    setTimeout(function() {showFront(cardId)}, 1000);
 }
 
 
@@ -104,7 +156,7 @@ function checkResult(cardId1, cardId2){
         checkEnd();
     }
     else{
-        setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 1000);
+        setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 3000);
     }
     setTimeout(function() {updateScore()}, 1000);
 }
