@@ -1,16 +1,17 @@
 var cardNames = ["diego.jpg", "xardas.jpg", "diego.jpg", "gorn.jpg", "milten.jpg", "lares.jpg", "gorn.jpg", "xardas.jpg", "milten.jpg", "lester.jpg", "lester.jpg", "lares.jpg"]
 var secondCard = false;
-var prevCard = 0;
+var prevCard = -1;
 var defalutImagePath = "images/dragon.jpg";
 var lock = false;
 var numberOfPairs = 6;
 var turnNumber = 0;
+var changeTime = 300;
 
-function showFront(cardId){
+function toggleFront(cardId, finVal){
     $("#frontCard"+cardId).animate(
-        {deg: 0},
+        {deg: finVal},
         {
-            duration: 1000,
+            duration: changeTime,
             step: function(now) {
                 $(this).css({ transform: 'rotateY(' + now + 'deg)' });
             }
@@ -18,37 +19,13 @@ function showFront(cardId){
     )
 }
 
-function hideFront(cardId){
-    $("#frontCard"+cardId).animate(
-        {deg: 90},
-        {
-            duration: 1000,
-            step: function(now) {
-                $(this).css({ transform: 'rotateY(' + now + 'deg)' });
-            }
-        }
-    )
-}
-
-function showBack(cardId){
+function toggleBack(cardId, finVal){ 
     $("#backCard"+cardId).animate(
-        {deg: 90},
+        {deg: finVal},
         {
-            duration: 1000,
+            duration: changeTime,
             step: function(now) {
-                $(this).css({ transform: 'rotateY(' + (90 - now) + 'deg)' });
-            }
-        }
-    )
-}
-
-function hideBack(cardId){
-    $("#backCard"+cardId).animate(
-        {deg: 0},
-        {
-            duration: 1000,
-            step: function(now) {
-                console.log("Here" + now);
+                console.log("KOL" + now);
                 $(this).css({ transform: 'rotateY(' + (90 - now) + 'deg)' });
             }
         }
@@ -56,11 +33,8 @@ function hideBack(cardId){
 }
 
 function showCard(cardId){
-    hideFront(cardId);
-    setTimeout(function() {showBack(cardId)}, 1000);
-
-    /*$("#frontCard"+cardId).css("animation", "cardrotation 0.2s ease-in forwards");
-    $("#backCard"+cardId).css("animation", "cardrotation 0.2s 0.2s ease-out forwards reverse");*/
+    toggleFront(cardId, 90);
+    setTimeout(function() {toggleBack(cardId, 90)}, changeTime)
 }
 
 Array.prototype.shuffle = function(){
@@ -105,7 +79,6 @@ function fadeAndChange(){
 }
 
 function endGame(){
-    
     $("#score").fadeOut(900);
     $("#board").fadeOut(1000);
     setTimeout(function() {fadeAndChange()}, 1000);
@@ -115,31 +88,33 @@ function checkEnd(){
     if(numberOfPairs == 0){
         endGame();
         $("#board").fadeIn(3000);
-        
     }
+}
+
+function unlock(){
+    lock = false;
 }
 
 function hideTwoCards(cardId1, cardId2){
     hideCard(cardId1);
     hideCard(cardId2);
-    lock = false;
+    setTimeout(function() {unlock()}, changeTime);
 }
 
 function hideCard(cardId){
     $("#frontCard" + cardId).css("opacity" , 0);
     $("#backCard" + cardId).css("opacity" , 0);
-
 }
 
 function restoreTwoCards(cardId1, cardId2){
     restoreCard(cardId1);
     restoreCard(cardId2);
-    lock = false;
+    setTimeout(function() {unlock()}, changeTime);
 }
 
 function restoreCard(cardId){
-    hideBack(cardId);
-    setTimeout(function() {showFront(cardId)}, 1000);
+    toggleBack(cardId, 0);
+    setTimeout(function() {toggleFront(cardId, 0)}, changeTime);
 }
 
 
@@ -156,13 +131,14 @@ function checkResult(cardId1, cardId2){
         checkEnd();
     }
     else{
-        setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 3000);
+        setTimeout(function() {restoreTwoCards(cardId1, cardId2)}, 1500);
     }
     setTimeout(function() {updateScore()}, 1000);
 }
 
 function cardManager(cardId){
-    if (!lock){
+    var opacityVal = $("#front").css('opacity');
+    if (opacityVal != 0 && !lock){
         showCard(cardId);
         if (secondCard && (prevCard != cardId)){
             lock = true;
@@ -174,8 +150,6 @@ function cardManager(cardId){
             secondCard = true;
         }
     }
-
 }
-
 
 prepareCards();
